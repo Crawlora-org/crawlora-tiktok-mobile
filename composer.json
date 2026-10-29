@@ -1,0 +1,47 @@
+{
+  "name": "crawlora/tiktok-mobile",
+  "description": "Crawlora TikTok Mobile API client with 63 endpoints for mobile feed, search, video, creator, music, LIVE, and place endpoints",
+  "keywords": [
+    "crawlora",
+    "api-client",
+    "sdk",
+    "web-scraping",
+    "scraping-api",
+    "tiktok-mobile",
+    "tiktok-mobile-api",
+    "tiktok-mobile-scraper",
+    "tiktok-mobile-data",
+    "tiktok-mobile-mobile-feed",
+    "tiktok-mobile-search",
+    "tiktok-mobile-video",
+    "tiktok-mobile-creator",
+    "tiktok-mobile-music",
+    "tiktok-mobile-live",
+    "tiktok-mobile-place-endpoints"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Crawlora\\TiktokMobile\\": "php/src/Crawlora/TiktokMobile/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Crawlora\\TiktokMobile\\Tests\\": "php/tests/"
+    }
+  },
+  "scripts": {
+    "test": "php php/tests/client_test.php"
+  },
+  "homepage": "https://crawlora.net/?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=tiktok-mobile-php-homepage",
+  "support": {
+    "source": "https://github.com/Crawlora-org/crawlora-tiktok-mobile",
+    "docs": "https://crawlora.net/docs?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=tiktok-mobile-php-api-docs"
+  }
+}
