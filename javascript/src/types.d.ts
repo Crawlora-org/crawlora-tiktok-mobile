@@ -1250,7 +1250,7 @@ export interface TiktokMobilePlaceReviewsParams {
   "poi_id": string;
   "cursor"?: number;
   "count"?: number;
-  "sort_type"?: "1" | "2";
+  "sort_type"?: 1 | 2;
 }
 
 export type TiktokMobilePlaceVideosResponse = CrawloraResponse<ModelTiktokmobilePlaceVideosResponseDoc>;
@@ -1338,7 +1338,7 @@ export interface TiktokMobileSearchStreamParams {
   "count"?: number;
   "offset"?: number;
   "search_source"?: string;
-  "sort_type"?: "0" | "1" | "3";
+  "sort_type"?: 0 | 1 | 3;
   "publish_time"?: number;
   "filter_selected"?: string;
 }
@@ -1366,7 +1366,7 @@ export interface TiktokMobileSearchVideosParams {
   "keyword": string;
   "count"?: number;
   "offset"?: number;
-  "sort_type"?: "0" | "1" | "3";
+  "sort_type"?: 0 | 1 | 3;
   "publish_time"?: number;
   "search_source"?: string;
   "search_id"?: string;

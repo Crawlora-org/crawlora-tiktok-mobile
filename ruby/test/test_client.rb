@@ -18,7 +18,7 @@ class PlatformClientTest < Minitest::Test
     result = client.request("tiktok-mobile-search", JSON.parse("{\"keyword\": \"sample\"}"))
     assert_equal({ "ok" => true }, result)
     assert_equal 1, calls.length
-    assert_includes calls.first[0], "/tiktok-mobile/"
+    assert_includes calls.first[0], "/tiktok/mobile/"
     assert_equal ["test-key"], calls.first[1]["x-api-key"]
     assert_equal 63, Crawlora::TiktokMobile::Client.operation_count
     default_client = Crawlora::TiktokMobile::Client.new(api_key: "test-key", transport: transport)

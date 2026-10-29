@@ -17,7 +17,7 @@ $result = $client->request("tiktok-mobile-search", ['keyword' => 'sample']);
 if ($result !== ['ok' => true]) {
     throw new RuntimeException('Expected the mocked JSON response.');
 }
-if (count($calls) !== 1 || !str_contains($calls[0][0], '/tiktok-mobile/')) {
+if (count($calls) !== 1 || !str_contains($calls[0][0], '/tiktok/mobile/')) {
     throw new RuntimeException('The generated operation did not use the platform API path.');
 }
 if (!in_array('x-api-key: test-key', $calls[0][1], true)) {
@@ -29,7 +29,7 @@ if ($client->operationCount() !== 63) {
 $defaultClient = new Crawlora\TiktokMobile\Client(
     apiKey: 'test-key',
     transport: function ($url) {
-        if (!str_starts_with($url, 'https://api.crawlora.net/api/v1/tiktok-mobile/')) {
+        if (!str_starts_with($url, 'https://api.crawlora.net/api/v1/tiktok/mobile/')) {
             throw new RuntimeException('The default API base URL did not include /api/v1.');
         }
         return ['status' => 200, 'content_type' => 'application/json', 'body' => '{"ok":true}'];
