@@ -2805,7 +2805,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one collection's record unmodified in `item_archive`: name, cover images, creator (`uid`, `creator_name`), status and `statistic.total`. `collection_id` is the `item_archive_id` from the collection list endpoint; web playlist (`mix`) ids are a different namespace and are rejected upstream with a permission error. Requires the device-backed signing service and returns a generic service-unavailable error without it.",
+        "description": "Returns one collection's record unmodified in `item_archive`: name, cover images, creator (`uid`, `creator_name`), status and `statistic.total`. `collection_id` is the `item_archive_id` from the collection list endpoint; web playlist (`mix`) ids are a different namespace and are rejected upstream with a permission error.",
         "operationId": "tiktok-mobile-collection-detail",
         "parameters": [
           {
@@ -2862,7 +2862,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists a creator's public collections (the profile's Collections tab) unmodified in `item_archive_detail_list`: each row carries the collection `id`, `name`, cover images and `statistic.total` video count. Use the returned `id` with the collection detail and collection videos endpoints. Requires the numeric `user_id` (a sec_user_id alone is rejected upstream). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error instead of an empty page.",
+        "description": "Lists a creator's public collections (the profile's Collections tab) unmodified in `item_archive_detail_list`: each row carries the collection `id`, `name`, cover images and `statistic.total` video count. Use the returned `id` with the collection detail and collection videos endpoints. Requires the numeric `user_id` (a sec_user_id alone is rejected upstream).",
         "operationId": "tiktok-mobile-collection-list",
         "parameters": [
           {
@@ -2933,7 +2933,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Pages one collection's videos in the creator's order, returning `items` (full video objects) unmodified with `min_cursor`, `max_cursor` and `has_more`. Pass `max_cursor` back as `cursor` while `has_more` is true. The server caps a page at about 30 rows, so `count` is a request hint. Requires the device-backed signing service and returns a generic service-unavailable error without it.",
+        "description": "Pages one collection's videos in the creator's order, returning `items` (full video objects) unmodified with `min_cursor`, `max_cursor` and `has_more`. Pass `max_cursor` back as `cursor` while `has_more` is true. The server caps a page at about 30 rows, so `count` is a request hint.",
         "operationId": "tiktok-mobile-collection-videos",
         "parameters": [
           {
@@ -3154,7 +3154,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of videos from TikTok's mobile For You feed, signed with well-formed mobile signature headers (no device or account needed). Each item carries `aweme_id`, `create_time`, `author_id`, `share_url` and the verified statistics block (`play_count`, `digg_count`, `comment_count`, `share_count`, `collect_count`, `download_count`, `forward_count`, `lose_count`, `lose_comment_count`, `whatsapp_share_count`, `repost_count`). A zero `count` uses the app's default page size; `count` is capped at 50.",
+        "description": "Returns one page of videos from TikTok's mobile For You feed. Each item carries `aweme_id`, `create_time`, `author_id`, `share_url` and the verified statistics block (`play_count`, `digg_count`, `comment_count`, `share_count`, `collect_count`, `download_count`, `forward_count`, `lose_count`, `lose_comment_count`, `whatsapp_share_count`, `repost_count`). A zero `count` uses the app's default page size; `count` is capped at 50.",
         "operationId": "tiktok-mobile-feed",
         "parameters": [
           {
@@ -3223,7 +3223,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Calls the app's cached-pull feed route - `GET /tiktok/feed/offline/v2` - which answers protobuf, and returns a schema-free decode: field numbers become keys, printable length-delimited fields become strings and nested messages become objects, plus a flat list of every string leaf (`strings`), which is the fastest way to mine video ids and captions. Field numbering is inferred because TikTok publishes no schema for this message. This is the cached/offline pull variant, not the primary `POST /aweme/v2/feed/` feed already exposed as `/tiktok/mobile/feed/post`. The route is signature-validated, so it needs device-backed request signing to be configured for the deployment and fails with an error when it is not.",
+        "description": "Calls the app's cached-pull feed route - `GET /tiktok/feed/offline/v2` - which answers protobuf, and returns a schema-free decode: field numbers become keys, printable length-delimited fields become strings and nested messages become objects, plus a flat list of every string leaf (`strings`), which is the fastest way to mine video ids and captions. Field numbering is inferred because TikTok publishes no schema for this message. This is the cached/offline pull variant, not the primary `POST /aweme/v2/feed/` feed already exposed as `/tiktok/mobile/feed/post`.",
         "operationId": "tiktok-mobile-feed-offline",
         "parameters": [
           {
@@ -3637,7 +3637,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the reference set the app's \"go LIVE\" flow uses to tag a stream: the general LIVE hashtags (`hashtags`, measured 18 entries of `{id, image, namespace, title}`, where `id` 0 is the \"None\" tag), the live-studio/live-voice/third-party hashtag subsets (`live_studio_hashtags` 16, `live_voice_hashtags` 16, `third_party_hashtags` 9), the single `game_hashtag`, and a 1,500-entry game catalogue (`game_tag_list`, `game_tag_count`) where every entry carries the same 12 keys: `id`, `short_name`, `show_name`, `full_name`, `bundle_id`, `package_name`, `game_category` (`[{game_type, title}]` with PC games/Mobile games/Console games/Others), `hashtag_id`, `hashtag_list`, `gar`, `landscape` (0/1/2) and `is_new_game`. The upstream is `/webcast/room/hashtag/list/` on the webcast edge host (no origin header); the measured body is 539,361 B and byte-identical on both working webcast hosts, `language`/`count` do not change it, and there is no cursor/has_more, so it is a one-shot reference dump. Measured 2026-10-22 with the pure-Go (device-free) signer, so it does not need the device-backed signer.",
+        "description": "Returns the reference set the app's \"go LIVE\" flow uses to tag a stream: the general LIVE hashtags (`hashtags`, measured 18 entries of `{id, image, namespace, title}`, where `id` 0 is the \"None\" tag), the live-studio/live-voice/third-party hashtag subsets (`live_studio_hashtags` 16, `live_voice_hashtags` 16, `third_party_hashtags` 9), the single `game_hashtag`, and a 1,500-entry game catalogue (`game_tag_list`, `game_tag_count`) where every entry carries the same 12 keys: `id`, `short_name`, `show_name`, `full_name`, `bundle_id`, `package_name`, `game_category` (`[{game_type, title}]` with PC games/Mobile games/Console games/Others), `hashtag_id`, `hashtag_list`, `gar`, `landscape` (0/1/2) and `is_new_game`. The upstream is `/webcast/room/hashtag/list/` on the webcast edge host (no origin header); the measured body is 539,361 B and byte-identical on both working webcast hosts, `language`/`count` do not change it, and there is no cursor/has_more, so it is a one-shot reference dump. Measured 2026-10-22,",
         "operationId": "tiktok-mobile-live-hashtags",
         "produces": [
           "application/json"
@@ -3678,7 +3678,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one LIVE room's detail, keyed by `room_id` — the numeric id that `/api/v1/tiktok/mobile/live/search` returns under `data[].lives.author.room_id`. The upstream is `/webcast/room/info/` on the webcast edge host (no origin header), captured from the running 47.4.3 app's LIVE surface and reproduced against the live gateway. The response projects the fields callers key on — `title`, `status` (2 = live), `user_count` (concurrent viewers), `create_time`, `owner` (user id, nickname, avatar), `stats` (cumulative `enter_count`/`total_user`, `watch_user_count`, `like_count`, `comment_count`, `share_count`, `follow_count`, `replay_viewers`), `stream` (playable `flv_pull_url` per resolution plus `default_resolution`/`candidate_resolution` and the HLS/RTMP URLs) and `cover` — and keeps the upstream room object unmodified in `data` (it has ~500 keys, so a partial struct would drop fields). Measured 2026-10-22 with the pure-Go (device-free) signer: one room returned 193-198 KB with 1,595-1,600 concurrent viewers, 27,916 cumulative viewers, 27,096 enters and FLV URLs for FULL_HD1/HD1/SD1/SD2. `anchor_id` is deliberately NOT forwarded: it was measured to suppress the audience-only `stats.total_user` (27,916 -> 0 on the same room). A missing, non-numeric or unknown room id answers the webcast envelope's status 10011 and is surfaced as a 400; a finished room (status 30003) is a 400 too. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns one LIVE room's detail, keyed by `room_id` — the numeric id that `/api/v1/tiktok/mobile/live/search` returns under `data[].lives.author.room_id`. The upstream is `/webcast/room/info/` on the webcast edge host (no origin header), captured from the running 47.4.3 app's LIVE surface and reproduced against the live gateway. The response projects the fields callers key on — `title`, `status` (2 = live), `user_count` (concurrent viewers), `create_time`, `owner` (user id, nickname, avatar), `stats` (cumulative `enter_count`/`total_user`, `watch_user_count`, `like_count`, `comment_count`, `share_count`, `follow_count`, `replay_viewers`), `stream` (playable `flv_pull_url` per resolution plus `default_resolution`/`candidate_resolution` and the HLS/RTMP URLs) and `cover` — and keeps the upstream room object unmodified in `data` (it has ~500 keys, so a partial struct would drop fields). Measured 2026-10-22: one room returned 193-198 KB with 1,595-1,600 concurrent viewers, 27,916 cumulative viewers, 27,096 enters and FLV URLs for FULL_HD1/HD1/SD1/SD2. `anchor_id` is deliberately NOT forwarded: it was measured to suppress the audience-only `stats.total_user` (27,916 -> 0 on the same room). A missing, non-numeric or unknown room id answers the webcast envelope's status 10011 and is surfaced as a 400; a finished room (status 30003) is a 400 too.",
         "operationId": "tiktok-mobile-live-room",
         "parameters": [
           {
@@ -3735,7 +3735,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the LIVE room a TikTok user is currently streaming, keyed by `user_id`. The upstream is `/webcast/room/info_by_user/` on the webcast edge host (no origin header) and returns the same room payload as `/api/v1/tiktok/mobile/live/room` (title, status, concurrent viewers, owner, cumulative stats, per-resolution FLV URLs, cover and the ~500-key room object in `data`), except that the caller addresses a user and the room id is filled from the payload (both `user_id` and `room_id` are echoed). Measured 2026-10-22 with the pure-Go (device-free) signer: `user_id=6707748031095751686` answered 184,575 B (195,220 B on the second webcast host); `anchor_id` alone answers a 57-byte empty payload, so `user_id` is the address. A user with no live room answers status 30003 \"room has finished\" and is surfaced as a 400; a non-numeric user id is a 400 (status 10011); a bare call answers a 57-byte empty success envelope, which is why this endpoint requires `user_id`. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns the LIVE room a TikTok user is currently streaming, keyed by `user_id`. The upstream is `/webcast/room/info_by_user/` on the webcast edge host (no origin header) and returns the same room payload as `/api/v1/tiktok/mobile/live/room` (title, status, concurrent viewers, owner, cumulative stats, per-resolution FLV URLs, cover and the ~500-key room object in `data`), except that the caller addresses a user and the room id is filled from the payload (both `user_id` and `room_id` are echoed). Measured 2026-10-22: `user_id=6707748031095751686` answered 184,575 B (195,220 B on the second webcast host); `anchor_id` alone answers a 57-byte empty payload, so `user_id` is the address. A user with no live room answers status 30003 \"room has finished\" and is surfaced as a 400; a non-numeric user id is a 400 (status 10011); a bare call answers a 57-byte empty success envelope, which is why this endpoint requires `user_id`.",
         "operationId": "tiktok-mobile-live-room-by-user",
         "parameters": [
           {
@@ -3856,7 +3856,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the app's LIVE tab catalogue: `data[]` holds one entry per tab with the tab's `id`, `name`, `style`, `enable`/`event` flags and the exact `url`/`inter_url` feed template the client calls for that tab. The measured tab 1 (\"live\") points at `/webcast/feed/?content_type=0&style=2&channel_id=21&sub_channel_id=0&tab_id=1&type=live&sub_type=live&req_type=0&cate_id=0` on `webcast.tiktokv.com`. This closes the route round 553 could not find a host for; it is served by the webcast edge hosts (non-webcast hosts answer 403) and is one of the few LIVE routes that answers device-free: measured with the pure-Go placeholder signer as well as the real device signer, so it does not need the device-backed signing service.",
+        "description": "Returns the app's LIVE tab catalogue: `data[]` holds one entry per tab with the tab's `id`, `name`, `style`, `enable`/`event` flags and the exact `url`/`inter_url` feed template the client calls for that tab. The measured tab 1 (\"live\") points at `/webcast/feed/?content_type=0&style=2&channel_id=21&sub_channel_id=0&tab_id=1&type=live&sub_type=live&req_type=0&cate_id=0` on `webcast.tiktokv.com`. This closes the route round 553 could not find a host for; it is served by the webcast edge hosts (non-webcast hosts answer 403).",
         "operationId": "tiktok-mobile-live-tabs",
         "produces": [
           "application/json"
@@ -3953,7 +3953,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of the app's regional sound chart: `chart_info` (chart id and update time), `cover_image_url` and a ranked `music_list` whose rows are a `music_info` sound object plus a `trend` entry; page with the returned `cursor` while `has_more` is true. `chart_region` selects the regional chart and accepts only `AE`, `BR`, `CA`, `DE`, `EG`, `FR`, `JP`, `KR`, `LB`, `MX`, `NG`, `SA`, `TR`, `US` and `ZA` (any other value returns an invalid-parameters error; omitting it returns the default chart, which equals `US`). `AE`, `EG`, `LB` and `SA` share one chart, as do `NG` and `ZA`. This is distinct from `music/pick`, which returns the creation panel's pick list with banners. Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Returns one page of the app's regional sound chart: `chart_info` (chart id and update time), `cover_image_url` and a ranked `music_list` whose rows are a `music_info` sound object plus a `trend` entry; page with the returned `cursor` while `has_more` is true. `chart_region` selects the regional chart and accepts only `AE`, `BR`, `CA`, `DE`, `EG`, `FR`, `JP`, `KR`, `LB`, `MX`, `NG`, `SA`, `TR`, `US` and `ZA` (any other value returns an invalid-parameters error; omitting it returns the default chart, which equals `US`). `AE`, `EG`, `LB` and `SA` share one chart, as do `NG` and `ZA`. This is distinct from `music/pick`, which returns the creation panel's pick list with banners.",
         "operationId": "tiktok-mobile-music-chart",
         "parameters": [
           {
@@ -4040,7 +4040,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the app's \"music choices\" list: the recommended sounds it offers on the video-creation page. The upstream is `/aweme/v1/music/choices/`; each `music_list` entry is the same full sound object the chart routes return (title, album, artists, covers, play URL, duration, ...). Measured 2026-10-21 with the pure-Go (device-free) signer: 56,078 B / 6 full sound objects on one call and 7 on later calls (the same six at the front), and the payload carries NO paging fields (no cursor/has_more), so this is a one-shot recommendation list. The measured `item_id`, `music_id`, `count` and `scene` parameters did not deterministically change the list — the recommendations rotate — so none is exposed. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns the app's \"music choices\" list: the recommended sounds it offers on the video-creation page. The upstream is `/aweme/v1/music/choices/`; each `music_list` entry is the same full sound object the chart routes return (title, album, artists, covers, play URL, duration, ...). Measured 2026-10-21: 56,078 B / 6 full sound objects on one call and 7 on later calls (the same six at the front), and the payload carries NO paging fields (no cursor/has_more), so this is a one-shot recommendation list. The measured `item_id`, `music_id`, `count` and `scene` parameters did not deterministically change the list — the recommendations rotate — so none is exposed.",
         "operationId": "tiktok-mobile-music-choices",
         "produces": [
           "application/json"
@@ -4081,7 +4081,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the app's music-collection LIST (`mc_list` of collection objects with covers), the browse list of curated music collections. This is a different route from `/api/v1/tiktok/mobile/music/collections`, which is the collection FEED (`mcf_list`, with each entry's music inline). The upstream is `/aweme/v1/music/collection/`. Unlike the feed, this route PAGES for real: `count` is honoured (measured 1 -> 1 item with `cursor: 1, has_more: 1`; 5 -> 5 items with `cursor: 5`; 10/100 -> all 8 collections) and `cursor` advances (measured `count=5&cursor=5` -> the remaining 3 with `has_more: 0`). A negative count answers upstream status 5, which is rejected locally. Measured 2026-10-21 with the pure-Go (device-free) signer: 8 collections total. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns the app's music-collection LIST (`mc_list` of collection objects with covers), the browse list of curated music collections. This is a different route from `/api/v1/tiktok/mobile/music/collections`, which is the collection FEED (`mcf_list`, with each entry's music inline). The upstream is `/aweme/v1/music/collection/`. Unlike the feed, this route PAGES for real: `count` is honoured (measured 1 -> 1 item with `cursor: 1, has_more: 1`; 5 -> 5 items with `cursor: 5`; 10/100 -> all 8 collections) and `cursor` advances (measured `count=5&cursor=5` -> the remaining 3 with `has_more: 0`). A negative count answers upstream status 5, which is rejected locally. Measured 2026-10-21: 8 collections total.",
         "operationId": "tiktok-mobile-music-collection-list",
         "parameters": [
           {
@@ -4207,7 +4207,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one sound's page: `music_info` (id, title, author, `user_count`, duration, cover renditions, bound challenge and the other sound fields), its chart rank, similar sounds, recommendation blocks and the behind-the-song flag. `music_id` is required. This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Returns one sound's page: `music_info` (id, title, author, `user_count`, duration, cover renditions, bound challenge and the other sound fields), its chart rank, similar sounds, recommendation blocks and the behind-the-song flag. `music_id` is required.",
         "operationId": "tiktok-mobile-music-detail",
         "parameters": [
           {
@@ -4340,7 +4340,7 @@
           },
           {
             "default": "fresh",
-            "description": "Listing: fresh (newest, default) or popular (app canonical music.posts list; requires the device-backed signer)",
+            "description": "Listing: fresh (newest, default) or popular (app canonical music.posts list)",
             "enum": [
               "fresh",
               "popular"
@@ -4543,7 +4543,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of an MV channel feed, the app's music-video (\"MV\") tab. The upstream is `/aweme/v1/mv/aweme/`; `mv_id` is a small numeric CHANNEL index, NOT a video id — measured ids 0-10 each returned a 15-video page of full aweme objects (1.05-1.24 MB), while 100 returned a valid empty page and a real aweme id returned an empty list. The server's page size is 15 and `count` was measured IGNORED (`count=5` and `count=10` both returned 15 items), so `count` is not exposed; page with `cursor`. The returned `cursor` is a reusable next-page token (measured page 1 `cursor: 18, has_more: 1`; `cursor=18` returned a fresh page with `cursor: 38, has_more: 1`). The envelope's `top_awemes` (pinned entries), `original_aweme_id`, `page_extra` and `extra`/`log_pb` are kept as measured. Measured 2026-10-22 with the pure-Go (device-free) signer, so it does not need the device-backed signer. A missing or non-numeric `mv_id` is a 400; an unknown numeric channel is a valid empty page.",
+        "description": "Returns one page of an MV channel feed, the app's music-video (\"MV\") tab. The upstream is `/aweme/v1/mv/aweme/`; `mv_id` is a small numeric CHANNEL index, NOT a video id — measured ids 0-10 each returned a 15-video page of full aweme objects (1.05-1.24 MB), while 100 returned a valid empty page and a real aweme id returned an empty list. The server's page size is 15 and `count` was measured IGNORED (`count=5` and `count=10` both returned 15 items), so `count` is not exposed; page with `cursor`. The returned `cursor` is a reusable next-page token (measured page 1 `cursor: 18, has_more: 1`; `cursor=18` returned a fresh page with `cursor: 38, has_more: 1`). The envelope's `top_awemes` (pinned entries), `original_aweme_id`, `page_extra` and `extra`/`log_pb` are kept as measured. Measured 2026-10-22, A missing or non-numeric `mv_id` is a 400; an unknown numeric channel is a valid empty page.",
         "operationId": "tiktok-mobile-mv-videos",
         "parameters": [
           {
@@ -4607,7 +4607,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one place detail page, keyed by the `poi_id` that the place search endpoint returns. The upstream is TikTok's server-driven UI (`/tiktok/poi/slash/v1`) frame stream, assembled here into the component map of the place-detail screen: `food_head_info` (place name, formatted address, category, phone, coordinates, opening hours, rating/score with mention count, price range, tags and photo album), `poi_top_videos` (top videos strip), `poi_limited_post` (posts about the place: full video items plus `aweme_cursor`/`has_more_aweme`), `poi_review` (review preview with `has_more`) and `ai_summary` when the place has one. `nodes` is opaque and complete, `frames` keeps the raw ordered frames, and the typed counters (`top_video_count`, `post_count`, `post_cursor`, `has_more_posts`, `review_count`, `has_more_reviews`) are convenience projections. The measured page-size controls are forwarded with the app's defaults but the server applies its own bounds. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns one place detail page, keyed by the `poi_id` that the place search endpoint returns. The upstream is TikTok's server-driven UI (`/tiktok/poi/slash/v1`) frame stream, assembled here into the component map of the place-detail screen: `food_head_info` (place name, formatted address, category, phone, coordinates, opening hours, rating/score with mention count, price range, tags and photo album), `poi_top_videos` (top videos strip), `poi_limited_post` (posts about the place: full video items plus `aweme_cursor`/`has_more_aweme`), `poi_review` (review preview with `has_more`) and `ai_summary` when the place has one. `nodes` is opaque and complete, `frames` keeps the raw ordered frames, and the typed counters (`top_video_count`, `post_count`, `post_cursor`, `has_more_posts`, `review_count`, `has_more_reviews`) are convenience projections. The measured page-size controls are forwarded with the app's defaults but the server applies its own bounds.",
         "operationId": "tiktok-mobile-place-detail",
         "parameters": [
           {
@@ -4699,7 +4699,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one place's compact record, keyed by the `poi_id` that the place search endpoint returns. The upstream is TikTok's POI read (`/tiktok/poi/get/v1`), the record behind a place card: `name`, `address`, `category`, `average_price`, `latitude`/`longitude`, `city_code`/`region_code`, `review_score` with `review_count`/`no_rating`, `video_count`, `favorite_count`, `opening_hours`/`opening_status`, `cover`, `share_url`/`share_desc` and `parent_poi`, plus the upstream POI object unmodified in `place` so a richer field is never lost. This is the cheap lookup to use instead of the ~1 MB slash detail page when only the place record is needed. A nonexistent id answers 400 (the upstream business status 3009009 \"poi not exist\" is a caller error, not an outage). Measured 2026-10-21 with the pure-Go (device-free) signer: 4,594 B for a coffee shop (score 4.7 / 2 reviews, price \"$\", hours \"8:00 AM – 5:00 PM\", 11 videos), 4,623 B for a second location (score 4.8 / 13 reviews). The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns one place's compact record, keyed by the `poi_id` that the place search endpoint returns. The upstream is TikTok's POI read (`/tiktok/poi/get/v1`), the record behind a place card: `name`, `address`, `category`, `average_price`, `latitude`/`longitude`, `city_code`/`region_code`, `review_score` with `review_count`/`no_rating`, `video_count`, `favorite_count`, `opening_hours`/`opening_status`, `cover`, `share_url`/`share_desc` and `parent_poi`, plus the upstream POI object unmodified in `place` so a richer field is never lost. This is the cheap lookup to use instead of the ~1 MB slash detail page when only the place record is needed. A nonexistent id answers 400 (the upstream business status 3009009 \"poi not exist\" is a caller error, not an outage). Measured 2026-10-21: 4,594 B for a coffee shop (score 4.7 / 2 reviews, price \"$\", hours \"8:00 AM – 5:00 PM\", 11 videos), 4,623 B for a second location (score 4.8 / 13 reviews).",
         "operationId": "tiktok-mobile-place-info",
         "parameters": [
           {
@@ -4756,7 +4756,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of a place's mixed video/photo grid unmodified in `item_list`: each row carries an `aweme` video object or a photo entry plus `media_type`/`item_type`, an `aweme_cover`, topic tags and a crop cover. `next_cursor` is the opaque paging token to pass back as `cursor` (send the returned `data_version` with it; the endpoint defaults it to `v1`). `size` is the app's page hint (default 6, max 30; the server caps larger values). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Returns one page of a place's mixed video/photo grid unmodified in `item_list`: each row carries an `aweme` video object or a photo entry plus `media_type`/`item_type`, an `aweme_cover`, topic tags and a crop cover. `next_cursor` is the opaque paging token to pass back as `cursor` (send the returned `data_version` with it; the endpoint defaults it to `v1`). `size` is the app's page hint (default 6, max 30; the server caps larger values).",
         "operationId": "tiktok-mobile-place-media",
         "parameters": [
           {
@@ -4833,7 +4833,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one place's photo album, keyed by the `poi_id` that the place search endpoint returns. The upstream is `/tiktok/poi/picture_album/v1`: `categories` holds each album tab (`name`, `pic_tab_typecode`, `pictures` of bare image URL lists and `pictures_v2`, the same photos with `author` attribution, `pic_id`, `source` and origin/compressed URL info), `photo_count` sums the categories' pictures, and `title` is the app's own header. Measured 2026-10-21 with the pure-Go (device-free) signer: one place answered 5,368 B, title \"Gallery (3)\", 1 category with 3 photos whose `pictures_v2` entries name the Google-places contributor; another answered 24,196 B with more photos. The album is one-shot: `count` and `pic_tab_typecode` were measured and did not change the page. A nonexistent id answers 500 (the upstream answers status 4 \"Server is currently unavailable\" on this route, unlike the poi-not-exist code the other place routes use). The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns one place's photo album, keyed by the `poi_id` that the place search endpoint returns. The upstream is `/tiktok/poi/picture_album/v1`: `categories` holds each album tab (`name`, `pic_tab_typecode`, `pictures` of bare image URL lists and `pictures_v2`, the same photos with `author` attribution, `pic_id`, `source` and origin/compressed URL info), `photo_count` sums the categories' pictures, and `title` is the app's own header. Measured 2026-10-21: one place answered 5,368 B, title \"Gallery (3)\", 1 category with 3 photos whose `pictures_v2` entries name the Google-places contributor; another answered 24,196 B with more photos. The album is one-shot: `count` and `pic_tab_typecode` were measured and did not change the page. A nonexistent id answers 500 (the upstream answers status 4 \"Server is currently unavailable\" on this route, unlike the poi-not-exist code the other place routes use).",
         "operationId": "tiktok-mobile-place-photos",
         "parameters": [
           {
@@ -4890,7 +4890,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of a place's reviews (`reviews`, full review objects: author, content, rating, tags, `server_param`) together with the score summary (`review_summary`: score and score range), the review tags (`review_tags`) and the paging token (`cursor`/`has_more`). The route uses the review-landing tab scene (`scene=7`) that the app's own review interface sends; without that scene the upstream rejects the request with `status_code 5`, which is why this family was previously unusable. `poi_id` is the place id from the place search/detail endpoints. Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Returns one page of a place's reviews (`reviews`, full review objects: author, content, rating, tags, `server_param`) together with the score summary (`review_summary`: score and score range), the review tags (`review_tags`) and the paging token (`cursor`/`has_more`). The route uses the review-landing tab scene (`scene=7`) that the app's own review interface sends; without that scene the upstream rejects the request with `status_code 5`, which is why this family was previously unusable. `poi_id` is the place id from the place search/detail endpoints.",
         "operationId": "tiktok-mobile-place-reviews",
         "parameters": [
           {
@@ -4972,7 +4972,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one page of the videos posted at a place, keyed by the `poi_id` that the place search endpoint returns. The upstream is `/tiktok/poi/video/list/v1`: `aweme_list` holds the app's full video objects (id, description, author, statistics, media URLs, music, anchors, ...) and `item_count` is this page's size. Page with `cursor`: the returned `cursor` is a reusable next-page token (measured page 1 `cursor: 20` with `has_more: 1`, page 2 `cursor: 40`), never with arithmetic on `count`. `count` is a page-size hint, not a strict size: 1/2/5 returned exactly that many items on the first page, a later page returned 8 for count=5, and 10/20/50 were all server-capped at 17. Measured 2026-10-21 with the pure-Go (device-free) signer: 11 videos (940-944 KB) on one place, 17 videos (1.4 MB) on another. The route exposes no sort control: `sort_type` and `order` were measured and did not change the page or its order. The upstream throttles bursts, so paced clients are expected. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns one page of the videos posted at a place, keyed by the `poi_id` that the place search endpoint returns. The upstream is `/tiktok/poi/video/list/v1`: `aweme_list` holds the app's full video objects (id, description, author, statistics, media URLs, music, anchors, ...) and `item_count` is this page's size. Page with `cursor`: the returned `cursor` is a reusable next-page token (measured page 1 `cursor: 20` with `has_more: 1`, page 2 `cursor: 40`), never with arithmetic on `count`. `count` is a page-size hint, not a strict size: 1/2/5 returned exactly that many items on the first page, a later page returned 8 for count=5, and 10/20/50 were all server-capped at 17. Measured 2026-10-21: 11 videos (940-944 KB) on one place, 17 videos (1.4 MB) on another. The route exposes no sort control: `sort_type` and `order` were measured and did not change the page or its order. The upstream throttles bursts, so paced clients are expected.",
         "operationId": "tiktok-mobile-place-videos",
         "parameters": [
           {
@@ -5043,7 +5043,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one playlist's record unmodified in `mix`: `mix_id`, `name`, `mix_type`, `creator_name`, `author`, `share_info`, `statistic.total` and `status`, plus `is_collect`. `mix_id` is the web playlist id namespace; the owner identity selector (`user_id` or `sec_user_id`) is required as well (the mobile route rejects `mix_id` alone with `status_code 5`). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Returns one playlist's record unmodified in `mix`: `mix_id`, `name`, `mix_type`, `creator_name`, `author`, `share_info`, `statistic.total` and `status`, plus `is_collect`. `mix_id` is the web playlist id namespace; the owner identity selector (`user_id` or `sec_user_id`) is required as well (the mobile route rejects `mix_id` alone with `status_code 5`).",
         "operationId": "tiktok-mobile-playlist-detail",
         "parameters": [
           {
@@ -5113,7 +5113,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists the public playlists (\"mixes\") of one creator unmodified in `mix_list`: each row carries the playlist `mix_id` (the same id the web playlist URL uses), `name`, `mix_type`, `creator_name`, `statistic.total` and `last_add_video_timestamp`. Feed `mix_id` to the playlist detail endpoint. Requires one identity selector (`user_id` or `sec_user_id`). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error instead of an empty page.",
+        "description": "Lists the public playlists (\"mixes\") of one creator unmodified in `mix_list`: each row carries the playlist `mix_id` (the same id the web playlist URL uses), `name`, `mix_type`, `creator_name`, `statistic.total` and `last_add_video_timestamp`. Feed `mix_id` to the playlist detail endpoint. Requires one identity selector (`user_id` or `sec_user_id`).",
         "operationId": "tiktok-mobile-playlist-list",
         "parameters": [
           {
@@ -5182,7 +5182,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists one page of a playlist's videos unmodified in `item_list`: each entry is the full video object the app renders (author, statistics, music, cover renditions, description). `mix_id` is the playlist id from the playlist list/detail endpoints; pass the returned `cursor` back while `has_more` is true. This endpoint is served from the public web twin (`www.tiktok.com/api/mix/item_list/`) because the mobile item route is not usable, so it is device-free: no signing service or cookie is required.",
+        "description": "Lists one page of a playlist's videos unmodified in `item_list`: each entry is the full video object the app renders (author, statistics, music, cover renditions, description). `mix_id` is the playlist id from the playlist list/detail endpoints; pass the returned `cursor` back while `has_more` is true. This endpoint is served from the public web twin (`www.tiktok.com/api/mix/item_list/`) because the mobile item route is not usable.",
         "operationId": "tiktok-mobile-playlist-videos",
         "parameters": [
           {
@@ -5253,7 +5253,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Keyword search returning the mobile API result documents unmodified: each entry has `aweme_info` (a full video object with statistics), `card_profile` and search metadata, plus `cursor` and `has_more`. Keep `count` small (20 already exceeds one megabyte of upstream JSON). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error instead of an empty page.",
+        "description": "Keyword search returning the mobile API result documents unmodified: each entry has `aweme_info` (a full video object with statistics), `card_profile` and search metadata, plus `cursor` and `has_more`. Keep `count` small (20 already exceeds one megabyte of upstream JSON).",
         "operationId": "tiktok-mobile-search",
         "parameters": [
           {
@@ -5330,7 +5330,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Searches TikTok's effect catalogue by `keyword`, returning the app's full effect objects (`name`, `hint`, `icon_url`, `file_url`, `effect_id`, `types`, `tags`, `parent`/`children`, `effect_type`, `music`, `source`, `designer_id`, `schema`). The upstream is `/aweme/v1/search/effect/`; the page is unfolded to the top level (`effects`, `cursor`, `has_more`, `search_id`, `use_hot`, plus `bind_effects`/`collection` on some queries). Paging is real but needs BOTH halves of the token: pass the previous response's `cursor` and `search_id` together (measured: page 1 `cursor: 100`, page 2 with `cursor=100&search_id=...` returned the final effect with `has_more: false`; a cursor without its `search_id` returns an empty page, which the service rejects as a 400). `count` and `offset` were measured as no-ops. Measured 2026-10-21 with the pure-Go (device-free) signer: `keyword=green screen` -> 6 effects (11,831 B) + 1 on page 2, `green` -> 2, `字幕` -> 4; a keyword with no matches is a valid empty page. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Searches TikTok's effect catalogue by `keyword`, returning the app's full effect objects (`name`, `hint`, `icon_url`, `file_url`, `effect_id`, `types`, `tags`, `parent`/`children`, `effect_type`, `music`, `source`, `designer_id`, `schema`). The upstream is `/aweme/v1/search/effect/`; the page is unfolded to the top level (`effects`, `cursor`, `has_more`, `search_id`, `use_hot`, plus `bind_effects`/`collection` on some queries). Paging is real but needs BOTH halves of the token: pass the previous response's `cursor` and `search_id` together (measured: page 1 `cursor: 100`, page 2 with `cursor=100&search_id=...` returned the final effect with `has_more: false`; a cursor without its `search_id` returns an empty page, which the service rejects as a 400). `count` and `offset` were measured as no-ops. Measured 2026-10-21: `keyword=green screen` -> 6 effects (11,831 B) + 1 on page 2, `green` -> 2, `字幕` -> 4; a keyword with no matches is a valid empty page.",
         "operationId": "tiktok-mobile-search-effects",
         "parameters": [
           {
@@ -5408,7 +5408,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the hashtag suggestions the app shows while typing in the search box, keyed by `keyword`. The upstream is `/aweme/v1/search/challengesug/`; each `sug_list` row carries `cha_name` (hashtag name), `view_count`, `use_count` and `cid` (the numeric hashtag id), so this is the discovery step for the hashtag endpoints (`hashtag info` is name-keyed). Measured 2026-10-21 with the pure-Go (device-free) signer: `keyword=lofi` returned 10 rows (`lofi` 18.2B views / 1.9M uses, then `lofiasmr`, `lofihiphop`, ...), `coffee` and `ラーメン` also returned 10 rows, and a keyword with no suggestions is a valid empty page (`sug_list: []`). `count` is accepted for shape parity but the server was measured to ignore it (5/20/100 all returned 10 rows), and the route has no paging. The route is not signature-gated, so it does not need the device-backed signer.",
+        "description": "Returns the hashtag suggestions the app shows while typing in the search box, keyed by `keyword`. The upstream is `/aweme/v1/search/challengesug/`; each `sug_list` row carries `cha_name` (hashtag name), `view_count`, `use_count` and `cid` (the numeric hashtag id), so this is the discovery step for the hashtag endpoints (`hashtag info` is name-keyed). Measured 2026-10-21: `keyword=lofi` returned 10 rows (`lofi` 18.2B views / 1.9M uses, then `lofiasmr`, `lofihiphop`, ...), `coffee` and `ラーメン` also returned 10 rows, and a keyword with no suggestions is a valid empty page (`sug_list: []`). `count` is accepted for shape parity but the server was measured to ignore it (5/20/100 all returned 10 rows), and the route has no paging.",
         "operationId": "tiktok-mobile-search-hashtags",
         "parameters": [
           {
@@ -5543,7 +5543,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Searches TikTok photo posts with the app's own Photos-tab call and returns the page unmodified. Rows live in `search_item_list` (each row's `aweme_info` carries `image_post_info.images`, the carousel images) while `aweme_list` is an empty array; `feedback_type` is `\"photo_tab\"`. `keyword` is required; `count` is bounded at 50 (default 10, the app's value) and `offset` is forwarded as the app's row offset. `sort_type` (0 relevance, 1 like count, 3 date posted) and `publish_time` (recency window in days) are the app's filter-sheet controls. The route is signature-validated, so it needs device-backed request signing to be configured for the deployment and fails with an error instead of returning an empty page when it is not.",
+        "description": "Searches TikTok photo posts with the app's own Photos-tab call and returns the page unmodified. Rows live in `search_item_list` (each row's `aweme_info` carries `image_post_info.images`, the carousel images) while `aweme_list` is an empty array; `feedback_type` is `\"photo_tab\"`. `keyword` is required; `count` is bounded at 50 (default 10, the app's value) and `offset` is forwarded as the app's row offset. `sort_type` (0 relevance, 1 like count, 3 date posted) and `publish_time` (recency window in days) are the app's filter-sheet controls.",
         "operationId": "tiktok-mobile-search-photos",
         "parameters": [
           {
@@ -5762,7 +5762,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Calls the app's primary search route - a form POST to `/aweme/v2/search/general/stream/` whose response is a stream of length-prefixed JSON frames - and returns the frames assembled: `documents` (the flattened `data` entries from the result frame, each a full 145-key video item and other document types), `frames` (every frame in arrival order, opaque, so incremental card patches are preserved), plus `cursor`, `has_more` and `search_id`. Optional `sort_type`, `publish_time` and the app's raw `filter_selected` JSON blob are forwarded to the route and were measured to change the result set (sort_type=1 gave a stable most-liked ordering, publish_time=7 a recency-limited set). This is the high-value search surface: unlike the single-document general search route it supports the app's full result set. It requires the device-backed signing service and returns a generic service-unavailable error when that signer is not configured.",
+        "description": "Calls the app's primary search route - a form POST to `/aweme/v2/search/general/stream/` whose response is a stream of length-prefixed JSON frames - and returns the frames assembled: `documents` (the flattened `data` entries from the result frame, each a full 145-key video item and other document types), `frames` (every frame in arrival order, opaque, so incremental card patches are preserved), plus `cursor`, `has_more` and `search_id`. Optional `sort_type`, `publish_time` and the app's raw `filter_selected` JSON blob are forwarded to the route and were measured to change the result set (sort_type=1 gave a stable most-liked ordering, publish_time=7 a recency-limited set). This is the high-value search surface: unlike the single-document general search route it supports the app's full result set.",
         "operationId": "tiktok-mobile-search-stream",
         "parameters": [
           {
@@ -5987,7 +5987,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Keyword search over users, returning `user_list` unmodified. Each `user_info` carries the populated creator statistics (follower_count, following_count, total_favorited, aweme_count, custom_verify). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error instead of an empty page.",
+        "description": "Keyword search over users, returning `user_list` unmodified. Each `user_info` carries the populated creator statistics (follower_count, following_count, total_favorited, aweme_count, custom_verify).",
         "operationId": "tiktok-mobile-search-user",
         "parameters": [
           {
@@ -6058,7 +6058,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Keyword search over videos. The videos are in `aweme_list` (each entry is the full video object); `search_item_list` is kept for compatibility and is `null`. `cursor`, `has_more` and `search_id` accompany the page. `keyword` is required, `count` is bounded at 50, `offset` is a row offset and `search_id` (returned by a previous page) scopes paging to the same search session. `sort_type` is one of `0` (relevance), `1` (like count) or `3` (date posted); `publish_time` is a recency window in days between `0` and `365` (the app uses `0`, `1`, `7`, `30`, `90`, `180`). This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Keyword search over videos. The videos are in `aweme_list` (each entry is the full video object); `search_item_list` is kept for compatibility and is `null`. `cursor`, `has_more` and `search_id` accompany the page. `keyword` is required, `count` is bounded at 50, `offset` is a row offset and `search_id` (returned by a previous page) scopes paging to the same search session. `sort_type` is one of `0` (relevance), `1` (like count) or `3` (date posted); `publish_time` is a recency window in days between `0` and `365` (the app uses `0`, `1`, `7`, `30`, `90`, `180`).",
         "operationId": "tiktok-mobile-search-videos",
         "parameters": [
           {
@@ -6161,7 +6161,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Translates one video's caption with the app's own translation route and returns the translated caption both as the app's raw markup (`translated_client_text.client_text_v2.markup_text`, where line breaks are `<br>` and hashtags are wrapped in `<h id=\"N\">...</h>`) and as plain text in `text`. `item_id` is required; `target_lang` defaults to `en` and accepts the app's language codes (`en`, `ja`, `pt-BR`, `zh-Hans`, ...). The route is signature-validated, so it needs device-backed request signing to be configured for the deployment and fails with an error instead of returning a stub when it is not.",
+        "description": "Translates one video's caption with the app's own translation route and returns the translated caption both as the app's raw markup (`translated_client_text.client_text_v2.markup_text`, where line breaks are `<br>` and hashtags are wrapped in `<h id=\"N\">...</h>`) and as plain text in `text`. `item_id` is required; `target_lang` defaults to `en` and accepts the app's language codes (`en`, `ja`, `pt-BR`, `zh-Hans`, ...).",
         "operationId": "tiktok-mobile-translation-description",
         "parameters": [
           {
@@ -6351,7 +6351,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists one creator's followers: `followers` holds the full user objects, `total` is the account's follower total, and the envelope also carries `max_time`/`min_time`/`offset`, `next_page_token` and `myself_user_id`. `count` is the requested page size (20 and 30 were honoured). Measured caveat: the first pages came back with `has_more` false even though `total` reported 2,774,249, and the returned time/offset probes did not advance the window - treat those paging fields as observed values, not as a guaranteed paging contract. This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Lists one creator's followers: `followers` holds the full user objects, `total` is the account's follower total, and the envelope also carries `max_time`/`min_time`/`offset`, `next_page_token` and `myself_user_id`. `count` is the requested page size (20 and 30 were honoured). Measured caveat: the first pages came back with `has_more` false even though `total` reported 2,774,249, and the returned time/offset probes did not advance the window - treat those paging fields as observed values, not as a guaranteed paging contract.",
         "operationId": "tiktok-mobile-user-followers",
         "parameters": [
           {
@@ -6421,7 +6421,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists the accounts one creator follows (`followings`, full 120-key user objects) with the mobile API's paging envelope: `total`, `has_more`/`rec_has_more`, `max_time`/`min_time` and `next_page_token`. Some profiles hide their following list; that answers upstream `status_code 3002060` (\"Profile user is hiding following list\"), which surfaces as a typed upstream error. Requires the device-backed signing service and returns a generic service-unavailable error when it is not configured.",
+        "description": "Lists the accounts one creator follows (`followings`, full 120-key user objects) with the mobile API's paging envelope: `total`, `has_more`/`rec_has_more`, `max_time`/`min_time` and `next_page_token`. Some profiles hide their following list; that answers upstream `status_code 3002060` (\"Profile user is hiding following list\"), which surfaces as a typed upstream error.",
         "operationId": "tiktok-mobile-user-following",
         "parameters": [
           {
@@ -6492,7 +6492,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists the effects one creator published unmodified in `effect`: each row carries the `effect_id`, `name`, `desc`, `icon_url`, `effect_source`, attributions, linked anchors and moderation status, with cursor paging (`cursor`/`has_more`). `user_id` must be the numeric uid. A creator with no published effects returns an empty list. Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Lists the effects one creator published unmodified in `effect`: each row carries the `effect_id`, `name`, `desc`, `icon_url`, `effect_source`, attributions, linked anchors and moderation status, with cursor paging (`cursor`/`has_more`). `user_id` must be the numeric uid. A creator with no published effects returns an empty list.",
         "operationId": "tiktok-mobile-user-original-effects",
         "parameters": [
           {
@@ -6563,7 +6563,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists the \"original sounds\" groups of one creator unmodified in `groups`: each group carries the `music` sound object, a `similar_music_list` and the `source_music_id`; the envelope also carries the creator's `honor_label`, a flat `music` list and cursor paging (`cursor`/`has_more`). `user_id` must be the numeric uid (a `sec_user_id` alone is rejected upstream with `status_code 5`). Requires the device-backed signing service; without it the endpoint returns a generic service-unavailable error.",
+        "description": "Lists the \"original sounds\" groups of one creator unmodified in `groups`: each group carries the `music` sound object, a `similar_music_list` and the `source_music_id`; the envelope also carries the creator's `honor_label`, a flat `music` list and cursor paging (`cursor`/`has_more`). `user_id` must be the numeric uid (a `sec_user_id` alone is rejected upstream with `status_code 5`).",
         "operationId": "tiktok-mobile-user-original-music",
         "parameters": [
           {
@@ -6634,7 +6634,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Lists one creator's videos newest-first: `aweme_list` holds the full video objects (author, statistics, music, video renditions, anchors), and the page is positioned by `max_cursor`/`min_cursor` with `has_more`. Paging is by `max_cursor`: pass the `max_cursor` returned by the previous page back as `cursor`. `count` is the requested page size (the app default returned 9 items; 20 and 30 were honoured). This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Lists one creator's videos newest-first: `aweme_list` holds the full video objects (author, statistics, music, video renditions, anchors), and the page is positioned by `max_cursor`/`min_cursor` with `has_more`. Paging is by `max_cursor`: pass the `max_cursor` returned by the previous page back as `cursor`. `count` is the requested page size (the app default returned 9 items; 20 and 30 were honoured).",
         "operationId": "tiktok-mobile-user-posts",
         "parameters": [
           {
@@ -6717,7 +6717,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one creator's profile page: `common` (the identity, account and relation blocks: user_profile_info, user_account_info, user_relation_info, user_statics_info with the follower/following/heart counters), plus the `header`, `nav_bar` and `profile_tab` layout components and the app's status/provenance fields. Address the creator by `user_id` or by `sec_user_id`; at least one is required and `user_id` wins when both are supplied. This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Returns one creator's profile page: `common` (the identity, account and relation blocks: user_profile_info, user_account_info, user_relation_info, user_statics_info with the follower/following/heart counters), plus the `header`, `nav_bar` and `profile_tab` layout components and the app's status/provenance fields. Address the creator by `user_id` or by `sec_user_id`; at least one is required and `user_id` wins when both are supplied.",
         "operationId": "tiktok-mobile-user-profile",
         "parameters": [
           {
@@ -6780,7 +6780,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns the app's suggested creators for the Following page unmodified: `user_list` entries are `{user, aweme_list}` where `user` is the full creator projection (uid, sec_uid, nickname, signature, avatars, follower/following counts, verification and privacy flags) and `aweme_list` holds up to three recent videos, so this is a creator-discovery surface rather than a bare id list. The route has no paging fields and returns one page of 13-17 creators (fresh recommendations differ per call). `count` is accepted for parity but the gateway was measured to ignore it. The route is not signature-value gated, so unlike the profile/posts routes it does not need the device-backed signer.",
+        "description": "Returns the app's suggested creators for the Following page unmodified: `user_list` entries are `{user, aweme_list}` where `user` is the full creator projection (uid, sec_uid, nickname, signature, avatars, follower/following counts, verification and privacy flags) and `aweme_list` holds up to three recent videos, so this is a creator-discovery surface rather than a bare id list. The route has no paging fields and returns one page of 13-17 creators (fresh recommendations differ per call). `count` is accepted for parity but the gateway was measured to ignore it.",
         "operationId": "tiktok-mobile-user-recommendations",
         "parameters": [
           {
@@ -6836,7 +6836,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one video's full item: author, statistics (`play_count`, `digg_count`, `comment_count` and the rest), music, video renditions, anchors and the other item fields - the complete object, not a projection. `aweme_id` is required. This endpoint needs device-backed request signing to be configured for the deployment; without it the request fails with an error instead of returning an empty page.",
+        "description": "Returns one video's full item: author, statistics (`play_count`, `digg_count`, `comment_count` and the rest), music, video renditions, anchors and the other item fields - the complete object, not a projection. `aweme_id` is required.",
         "operationId": "tiktok-mobile-video-detail",
         "parameters": [
           {
@@ -6893,7 +6893,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns one video's own captions translated into the requested language, as TikTok's caption/language (`cla`) service serves them. The response carries the track twice: `webvtt` is the upstream WebVTT text verbatim, and `cues` is the same track parsed into `{start_ms, end_ms, start, end, text}` records so a caller does not have to implement WebVTT. `video_id` is the aweme id returned by the feed, search, profile-posts and hashtag endpoints. Measured 2026-10-21 with the pure-Go (device-free) signer: the Korean-caption video 7696141388324293918 answered 11 English cues for `language=en`, and the same video answered Japanese, Chinese, Spanish, French, German, Korean, Portuguese, Russian, Arabic, Hindi, Indonesian, Thai, Vietnamese, Turkish and Italian tracks; a Portuguese-lyrics video answered an 18,494-character English track (240 cues). Track size is a snapshot rather than a contract (the upstream re-translates from a cache), so assert a non-empty track in the requested language, not a byte count. The route is not signature-gated, so it does not need the device-backed signer. A video with no captions answers 400 (upstream status 5); a nonexistent video answers 500 (upstream status 4).",
+        "description": "Returns one video's own captions translated into the requested language, as TikTok's caption/language (`cla`) service serves them. The response carries the track twice: `webvtt` is the upstream WebVTT text verbatim, and `cues` is the same track parsed into `{start_ms, end_ms, start, end, text}` records so a caller does not have to implement WebVTT. `video_id` is the aweme id returned by the feed, search, profile-posts and hashtag endpoints. Measured 2026-10-21: the Korean-caption video 7696141388324293918 answered 11 English cues for `language=en`, and the same video answered Japanese, Chinese, Spanish, French, German, Korean, Portuguese, Russian, Arabic, Hindi, Indonesian, Thai, Vietnamese, Turkish and Italian tracks; a Portuguese-lyrics video answered an 18,494-character English track (240 cues). Track size is a snapshot rather than a contract (the upstream re-translates from a cache), so assert a non-empty track in the requested language, not a byte count. A video with no captions answers 400 (upstream status 5); a nonexistent video answers 500 (upstream status 4).",
         "operationId": "tiktok-mobile-video-subtitles",
         "parameters": [
           {

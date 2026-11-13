@@ -1,6 +1,6 @@
 {
   "name": "@crawlora-org/tiktok-mobile",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Crawlora TikTok Mobile API client with 63 endpoints for mobile feed, search, video, creator, music, LIVE, and place endpoints",
   "homepage": "https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=tiktok-mobile-javascript-homepage",
   "bugs": { "url": "https://github.com/Crawlora-org/crawlora-tiktok-mobile/issues" },

@@ -6,10 +6,10 @@ from .operations import OPERATION_COUNT, OPERATION_IDS, PLATFORM
 
 Client = TikTokMobileClient
 AsyncClient = AsyncTikTokMobileClient
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 DISPLAY_NAME = 'TikTok Mobile'
 PLATFORM = 'tiktok-mobile'
-CONTRACT_REVISION = 'sha256:e5c9adbb39f7461654081ba911e31925e6d1a5450715a23c0e51f392ecf6da7d'
+CONTRACT_REVISION = 'sha256:37665fe483e1520869d00ae27595b9d2f38b8eacf77cdf4923d4b21df4c1daf1'
 
 __all__ = [
     "TikTokMobileClient", "AsyncTikTokMobileClient", "Client", "AsyncClient",

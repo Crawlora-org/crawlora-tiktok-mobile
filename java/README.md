@@ -8,7 +8,7 @@ The official Java client for Crawlora's hosted TikTok Mobile API. It exposes 63 
 <dependency>
   <groupId>net.crawlora</groupId>
   <artifactId>crawlora-tiktok-mobile</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 

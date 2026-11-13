@@ -7,7 +7,7 @@ from .async_client import AsyncCrawloraClient
 class TikTokMobileClient(CrawloraClient):
     """Synchronous TikTok Mobile API client."""
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        kwargs.setdefault('user_agent', 'crawlora-tiktok-mobile-python/0.1.0')
+        kwargs.setdefault('user_agent', 'crawlora-tiktok-mobile-python/0.1.1')
         super().__init__(*args, **kwargs)
 
     def anchor_list(self, **params: Any) -> Any:
@@ -391,7 +391,7 @@ class TikTokMobileClient(CrawloraClient):
 class AsyncTikTokMobileClient(AsyncCrawloraClient):
     """Asynchronous TikTok Mobile API client."""
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        kwargs.setdefault('user_agent', 'crawlora-tiktok-mobile-python/0.1.0')
+        kwargs.setdefault('user_agent', 'crawlora-tiktok-mobile-python/0.1.1')
         super().__init__(*args, **kwargs)
 
     async def anchor_list(self, **params: Any) -> Any:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crawlora-tiktok-mobile"
-version = "0.1.0"
+version = "0.1.1"
 description = "Crawlora TikTok Mobile API client with 63 endpoints for mobile feed, search, video, creator, music, LIVE, and place endpoints"
 readme = "README.md"
 keywords = ["crawlora", "api-client", "sdk", "web-scraping", "scraping-api", "tiktok-mobile", "tiktok-mobile-api", "tiktok-mobile-scraper", "tiktok-mobile-data", "tiktok-mobile-mobile-feed", "tiktok-mobile-search", "tiktok-mobile-video", "tiktok-mobile-creator", "tiktok-mobile-music", "tiktok-mobile-live", "tiktok-mobile-place-endpoints"]

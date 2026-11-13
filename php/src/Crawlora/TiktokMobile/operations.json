@@ -1191,7 +1191,7 @@
         },
         {
           "default": "fresh",
-          "description": "Listing: fresh (newest, default) or popular (app canonical music.posts list; requires the device-backed signer)",
+          "description": "Listing: fresh (newest, default) or popular (app canonical music.posts list)",
           "enum": [
             "fresh",
             "popular"
