@@ -1,6 +1,6 @@
 [package]
 name = "crawlora-tiktok-mobile"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.88"
 description = "Typed Rust client for Crawlora's hosted TikTok Mobile API. Requires a Crawlora API key."

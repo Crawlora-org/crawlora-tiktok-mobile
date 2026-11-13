@@ -8,7 +8,7 @@ Official Crawlora client packages for the hosted TikTok Mobile API. Access 63 AP
 - Python: [`crawlora-tiktok-mobile`](python/README.md)
 - Go: [`github.com/Crawlora-org/crawlora-tiktok-mobile`](go.mod)
 - Ruby: [`crawlora-tiktok-mobile`](ruby/README.md)
-- Java: [`net.crawlora:crawlora-tiktok-mobile:0.1.0`](java/README.md)
+- Java: [`net.crawlora:crawlora-tiktok-mobile:0.1.1`](java/README.md)
 - PHP: [`crawlora/tiktok-mobile`](php/README.md)
 - Rust: [`crawlora-tiktok-mobile`](rust/README.md)
 

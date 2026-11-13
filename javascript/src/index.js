@@ -9,7 +9,7 @@ import {
 
 export class TikTokMobileClient extends CrawloraClient {
   constructor(options = {}) {
-    super({ ...options, userAgent: options.userAgent ?? "crawlora-tiktok-mobile-js/0.1.0" });
+    super({ ...options, userAgent: options.userAgent ?? "crawlora-tiktok-mobile-js/0.1.1" });
     this["anchorList"] = (...args) => this.request("tiktok-mobile-anchor-list", ...args);
     this["collectionDetail"] = (...args) => this.request("tiktok-mobile-collection-detail", ...args);
     this["collectionList"] = (...args) => this.request("tiktok-mobile-collection-list", ...args);
@@ -85,5 +85,5 @@ export {
   CrawloraServerError
 };
 export { groups, operations, operationCount, OperationIds } from "./operations.js";
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 export default TikTokMobileClient;

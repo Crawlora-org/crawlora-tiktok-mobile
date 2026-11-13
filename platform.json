@@ -2,11 +2,11 @@
   "api_path_prefix": "/tiktok/mobile/",
   "async_class_name": "AsyncTikTokMobileClient",
   "class_name": "TikTokMobileClient",
-  "contract_revision": "sha256:e5c9adbb39f7461654081ba911e31925e6d1a5450715a23c0e51f392ecf6da7d",
+  "contract_revision": "sha256:37665fe483e1520869d00ae27595b9d2f38b8eacf77cdf4923d4b21df4c1daf1",
   "display_name": "TikTok Mobile",
   "general_sdk_version": "1.50.0-sdk.1",
   "golang_module_name": "github.com/Crawlora-org/crawlora-tiktok-mobile",
-  "golang_version": "0.1.0",
+  "golang_version": "0.1.1",
   "group_name": "tiktokMobile",
   "java_description": "Java client for Crawlora's hosted TikTok Mobile API, with mobile feed, search, video, creator, music, LIVE, and place endpoints. Requires a Crawlora API key.",
   "maven_artifact_id": "crawlora-tiktok-mobile",
@@ -17,10 +17,27 @@
   "php_repository": "https://github.com/Crawlora-org/crawlora-tiktok-mobile",
   "platform": "tiktok-mobile",
   "python_name": "crawlora-tiktok-mobile",
+  "releases": [
+    {
+      "changes": [
+        "Updated operation contracts: tiktok-mobile-collection-detail, tiktok-mobile-collection-list, tiktok-mobile-collection-videos, tiktok-mobile-feed, tiktok-mobile-feed-offline, tiktok-mobile-live-hashtags, tiktok-mobile-live-room, tiktok-mobile-live-room-by-user, tiktok-mobile-live-tabs, tiktok-mobile-music-chart, tiktok-mobile-music-choices, tiktok-mobile-music-collection-list, tiktok-mobile-music-detail, tiktok-mobile-music-posts, tiktok-mobile-mv-videos, tiktok-mobile-place-detail, tiktok-mobile-place-info, tiktok-mobile-place-media, tiktok-mobile-place-photos, tiktok-mobile-place-reviews, tiktok-mobile-place-videos, tiktok-mobile-playlist-detail, tiktok-mobile-playlist-list, tiktok-mobile-playlist-videos, tiktok-mobile-search, tiktok-mobile-search-effects, tiktok-mobile-search-hashtags, tiktok-mobile-search-photos, tiktok-mobile-search-stream, tiktok-mobile-search-user, tiktok-mobile-search-videos, tiktok-mobile-translation-description, tiktok-mobile-user-followers, tiktok-mobile-user-following, tiktok-mobile-user-original-effects, tiktok-mobile-user-original-music, tiktok-mobile-user-posts, tiktok-mobile-user-profile, tiktok-mobile-user-recommendations, tiktok-mobile-video-detail, tiktok-mobile-video-subtitles."
+      ],
+      "date": "2026-11-13",
+      "version": "0.1.1"
+    },
+    {
+      "changes": [
+        "Initial TikTok Mobile platform clients for Crawlora's hosted API across JavaScript/TypeScript, Python, Go, Ruby, Java, PHP, and Rust.",
+        "Includes typed endpoint methods generated from contract revision `sha256:e5c9adbb39f7461654081ba911e31925e6d1a5450715a23c0e51f392ecf6da7d`."
+      ],
+      "date": "2026-10-07",
+      "version": "0.1.0"
+    }
+  ],
   "repository": "https://github.com/Crawlora-org/crawlora-tiktok-mobile",
   "ruby_gem_name": "crawlora-tiktok-mobile",
   "rust_crate_name": "crawlora-tiktok-mobile",
   "rust_module_name": "crawlora_tiktok_mobile",
-  "source_contract_sha256": "e5c9adbb39f7461654081ba911e31925e6d1a5450715a23c0e51f392ecf6da7d",
-  "version": "0.1.0"
+  "source_contract_sha256": "123c5406ee3b92b07d2ef3dbe21a6ded54b79b25d26c13cbb905a34e3ecc7118",
+  "version": "0.1.1"
 }
